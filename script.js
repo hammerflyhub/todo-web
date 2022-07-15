@@ -23,7 +23,9 @@ function setNextQuestions(question) {
     question.answers.forEach(answer => {
         const button = document.createElement("button")
         button.innerText = answer.text
-        if (answer.countdown) button.dataset.countdown = answer.countdown
+        if (answer.countdown) {
+            button.dataset.countdown = answer.countdown
+        }
         if (answer.go) button.dataset.go = answer.go
         if (answer.summer) button.dataset.summer = answer.summer
         button.addEventListener("click", selectAnswer)
@@ -46,27 +48,24 @@ function start(countdown = false, go = currentQuestionIndex + 1, summer = false)
         answerButtonsElement.removeChild(answerButtonsElement.firstChild)
     }
     if (summer) return cloth()
-    if (countdown){
+    if (countdown) {
         questionContainerElement.innerText = go
         timer()
     }
     if (!countdown) return setNextQuestions(questions[go])
 }
 
-function timer() {
-    function MyTimer(callback, val) {
-        val = val || 5;
-        var timer = setInterval(function () {
-            callback(val);
-            if (val-- <= 0) {
-                clearInterval(timer);
-            }
-        }, 1000);
-    }
-    new MyTimer(function (val) {
-        var timerMsg = "00:" + (val >= 10 ? val : "0" + val);
-        document.getElementById("timer").textContent = timerMsg;
-    });
+const timer = (i = 0 * 3600 + 0 * 60 + 5) => {
+    const mytimer = setInterval(() => {
+        let hours = Math.floor(i / (60 * 60))
+        let minutes = Math.floor(i / 60 % 60)
+        let seconds = Math.floor(i % 60);
+        document.getElementById("timer").innerHTML =
+            (hours == 0 ? "" : `0${hours}:`) +
+            (minutes >= 10 ? `${minutes}:` : `0${minutes}:`) +
+            (seconds >= 10 ? seconds : "0" + seconds)
+        if (i-- <= 0) clearInterval(mytimer)
+    }, 1000)
 }
 
 function RandArray(array) {
@@ -79,15 +78,15 @@ function RandArray(array) {
 function cloth() {
     var myTop = ['深蓝连衣裙', '格子短袖', '粉色T恤', 'see you soon T恤'];
     var Top = RandArray(myTop);
-    questionContainerElement.innerText=Top;
+    questionContainerElement.innerText = Top;
 
     var Pants = RandArray(['浅蓝牛仔裤', '卡其七分裤', '斑点半裙']);
     if (Top == '格子短袖' || Top == '粉色T恤') {
-        questionContainerElement.innerText+="\r\n"+ Pants;
+        questionContainerElement.innerText += "\r\n" + Pants;
     }
 
     var Coat = RandArray(['牛仔衬衣']);
-    questionContainerElement.innerText +="\r\n" + Coat;
+    questionContainerElement.innerText += "\r\n" + Coat;
 
     var Shoes = RandArray(['粉白毛鞋', 'Beta老爹鞋']);
     questionContainerElement.innerText += "\r\n" + Shoes;
@@ -147,6 +146,7 @@ const questions = [
     },
 
     {
+        jump: new Date().getHours() > 12,
         question: "刷牙了吗？",
         answers: [
             { text: "没", countdown: true, go: "去刷牙" },
@@ -158,24 +158,36 @@ const questions = [
         question: "吃饭了吗？",
         answers: [
             { text: "没" },
-            { text: "吃了" },
+            { text: "吃了", go: 9 },
         ]
     },
     {
         question: "去吃饭",
         answers: [
             { text: "好", countdown: true, go: "Guten appetit" },
-            { text: "等等，我还没换衣服", summer: true},
+            { text: "等等，我还没换衣服", summer: true },
 
         ]
     },
     {
         question: "今天写Masterarbeit了吗？",
         answers: [
-            { text: "没", countdown: true, go: "来吧，学习" },
+            { text: "没" },
             { text: "学了" },
 
         ]
     },
-
+    {
+        question: "学15分钟怎么样？",
+        answers: [
+            { text: "好的" },
+            { text: "再说吧" },
+        ]
+    },
+    {
+        question: "打算学什么呢？",
+        answers: [
+            { text: "probabilistic:一天24小时", countdown: true, go: "加油" },
+        ]
+    },
 ]
