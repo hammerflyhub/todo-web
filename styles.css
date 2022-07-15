@@ -1,0 +1,10 @@
+*{font-size: 1.3rem;}
+
+.hide{
+    display:none;
+}
+
+button {
+    height: 33vh;
+    width:33%
+  }
