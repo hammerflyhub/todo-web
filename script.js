@@ -82,10 +82,27 @@ const questions = [
         ]   
     },
     {
+        jump: new Date().getHours()>7,
         question: "那直接睡吧？",
         answers: [
             { text: "好", countdown:true,go:"晚安"},
             { text: "等下，我不想在这里睡！", countdown:true,go:"那去另一个房间吧"},
+           
+        ]   
+    },
+    {
+        question: "渴了？",
+        answers: [
+            { text: "是的"},
+            { text: "那倒不是因为这个",go:5},
+           
+        ]   
+    },
+    {
+        question: "喝点水？",
+        answers: [
+            { text: "好的", countdown:true,go:"喝水吧"},
+            { text: "等下，水还不能喝"},
            
         ]   
     },
@@ -98,23 +115,6 @@ const questions = [
         ]   
     },
 
-    {
-        question: "渴了？",
-        answers: [
-            { text: "是的"},
-            { text: "那倒不是因为这个"},
-           
-        ]   
-    },
-
-    {
-        question: "喝点水？",
-        answers: [
-            { text: "好的", countdown:true,go:"喝水吧"},
-            { text: "等下，水还不能喝"},
-           
-        ]   
-    },
     {
         question: "刷牙了吗？",
         answers: [
