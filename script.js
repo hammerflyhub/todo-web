@@ -155,6 +155,7 @@ const questions = [
         ]
     },
     {
+        jump: new Date().getHours() < 12,
         question: "吃饭了吗？",
         answers: [
             { text: "没" },
@@ -162,10 +163,19 @@ const questions = [
         ]
     },
     {
+        jump: new Date().getHours() < 12,
         question: "去吃饭",
         answers: [
             { text: "好", countdown: true, go: "Guten appetit" },
             { text: "等等，我还没换衣服", summer: true },
+
+        ]
+    },
+    {
+        question: "最近洗澡了吗？",
+        answers: [
+            { text: "没", countdown: true, go: "去洗个澡吧" },
+            { text: "洗过了"},
 
         ]
     },
